@@ -5,7 +5,7 @@ import ballerinax/health.fhir.r4.parser as r4parser;
 import ballerinax/health.hl7v2;
 import ballerinax/health.hl7v23.utils.v2tofhirr4;
 
-string message_a01 = string `MSH|^~\&|FICTIONAL_ADT_APP|FICTIONAL_HOSPITAL|FICTIONAL_ADT_RECEIVER|FICTIONAL_HOSPITAL|20231027103000||ADT^A01^ADT_A01|MSG00001|P|2.3|||AL|NE|USA|UNICODE UTF-8|||
+string message_a01 = string `MSH|^~\&|FICTIONAL_ADT_APP|FICTIONAL_HOSPITAL|FICTIONAL_ADT_RECEIVER|FICTIONAL_HOSPITAL|2020-05-08T13:06:43||ADT^A01^ADT_A01|MSG00001|P|2.3|||AL|NE|USA|UNICODE UTF-8|||
 PID|1||12345678^MRN^FICTIONAL_HOSPITAL^PI||SMITH^JOHN^ROBERT^^MR||19800515|M||2106-3^White^HL70005|123 MAIN ST^^ANYTOWN^GA^30303^USA^H||(555)123-4567|||M^Married^HL70002||ACC00001|||2186-5^Not Hispanic or Latino^HL70005|||||||||
 PV1|1|I|200A^200^B1^FICTIONAL_HOSPITAL|E|||12345^DOE^JANE^A^DR|||MED^Medical^HL70069||||E|||12345^DOE^JANE^A^DR||VISIT00001|MC^Managed Care^HL70064|||||||||||||||O|||20231027090000||||||`;
 
@@ -35,10 +35,9 @@ public function main() returns error? {
         } else if fhirResource["resourceType"].toString() == "Patient" {
             international401:Patient patientResource = <international401:Patient>check r4parser:parse(fhirResource.toJson());
             io:println(string `[Patient] resource json: ${patientResource.toJson().toString()}`);
-            MyPatient myPatient = transform(patientResource);
-            io:println(string `Custom Patient: ${myPatient.toString()}`);
+
         } else {
-            io:println(`Unsupported resource type: ${fhirResource["resourceType"].toString()}`);
+            // ignore
         }
     }
     io:println("[Done] FHIR Bundle is processed successfully");
