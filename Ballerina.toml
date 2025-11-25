@@ -1,0 +1,8 @@
+[package]
+org = "nirmal"
+name = "fhir_patient_admission_integration"
+version = "0.1.0"
+title = "FHIR Patient Admission Integration"
+
+[build-options]
+sticky = true
